@@ -9,7 +9,7 @@ function Search() {
   const { setSearchTerm, searchTerm } = useSearch();
 
   return (
-    <div className="relative min-w-[500px] py-4 group">
+    <div className="relative min-w-[100px] md:min-w-[500px] py-4 group">
       <LuSearch
         size={21}
         className={`absolute left-4 top-1/2 -translate-y-1/2 transform text-muted-foreground group-hover:text-primary-theme duration-200 ${
