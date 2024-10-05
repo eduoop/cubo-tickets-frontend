@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./_components/Navbar";
 import { ThemeProvider } from "./_providers/theme-provider";
+import { SearchProvider } from "./_contexts/SearchContext";
 
 export const metadata: Metadata = {
   title: "Cubo Tickets",
@@ -16,10 +17,12 @@ export default function RootLayout({
   return (
     <html lang="pt_BR">
       <body className="bg-foreground text-primary">
-        <ThemeProvider attribute="class" defaultTheme="dark">
-          <Navbar />
-          <div className="pt-[58px]">{children}</div>
-        </ThemeProvider>
+        <SearchProvider>
+          <ThemeProvider attribute="class" defaultTheme="dark">
+            <Navbar />
+            <div className="pt-[58px]">{children}</div>
+          </ThemeProvider>
+        </SearchProvider>
       </body>
     </html>
   );
