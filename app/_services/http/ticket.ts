@@ -46,7 +46,7 @@ export async function updateTicketStatusById(id: number, status: TicketStatus): 
   }
 
   revalidatePath('/');
-  revalidatePath('/ticket');
+  revalidatePath(`/ticket/${id}`);
 
   const data: TicketResponse = await response.json();
   return data;

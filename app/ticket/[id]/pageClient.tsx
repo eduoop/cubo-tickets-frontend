@@ -19,6 +19,7 @@ import {
   TicketStatus,
   updateTicketStatusById,
 } from "@/app/_services/http/ticket";
+import { VscLoading } from "react-icons/vsc";
 
 interface PageClientProps {
   ticket: Ticket;
@@ -27,13 +28,17 @@ interface PageClientProps {
 function PageClient({ ticket }: PageClientProps) {
   const [ticketStatus, setTicketStatus] = useState(ticket.status);
   const [openChangeStatus, setOpenChangeStatus] = useState(false);
+  const [savingStatus, setSavingStatus] = useState(false);
   const isOpen = ticketStatus === "CLOSED" ? false : true;
 
-  const updateTicketStatus = (status: TicketStatus) => {
+  const updateTicketStatus = async (status: TicketStatus) => {
+    setSavingStatus(true);
     try {
-      updateTicketStatusById(ticket.id, status);
+      await updateTicketStatusById(ticket.id, status);
     } catch {
       alert("Não foi possível atualizar :(");
+    } finally {
+      setSavingStatus(false);
     }
   };
 
@@ -42,7 +47,7 @@ function PageClient({ ticket }: PageClientProps) {
     setOpenChangeStatus(false);
 
     if (newStatus !== ticketStatus) {
-      updateTicketStatus(newStatus);
+      updateTicketStatus(newStatus).then(() => {});
     }
   };
 
@@ -66,7 +71,11 @@ function PageClient({ ticket }: PageClientProps) {
                 } `}
               >
                 {isOpen ? "Aberto" : "Fechado"}
-                <IoIosArrowDown size={20} />
+                {savingStatus ? (
+                  <VscLoading size={20} className="animate-spin" />
+                ) : (
+                  <IoIosArrowDown size={20} />
+                )}
               </Badge>
             </PopoverTrigger>
             <PopoverContent className="w-fit flex flex-col p-2 gap-2">
