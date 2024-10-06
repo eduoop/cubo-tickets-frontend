@@ -20,6 +20,7 @@ import {
   updateTicketStatusById,
 } from "@/app/_services/http/ticket";
 import { VscLoading } from "react-icons/vsc";
+import { format } from "date-fns";
 
 interface PageClientProps {
   ticket: Ticket;
@@ -35,6 +36,7 @@ function PageClient({ ticket }: PageClientProps) {
     setSavingStatus(true);
     try {
       await updateTicketStatusById(ticket.id, status);
+      setTicketStatus(status);
     } catch {
       alert("Não foi possível atualizar :(");
     } finally {
@@ -43,11 +45,10 @@ function PageClient({ ticket }: PageClientProps) {
   };
 
   const handleChangeTicketStatus = (newStatus: TicketStatus) => {
-    setTicketStatus(newStatus);
     setOpenChangeStatus(false);
 
     if (newStatus !== ticketStatus) {
-      updateTicketStatus(newStatus).then(() => {});
+      updateTicketStatus(newStatus);
     }
   };
 
@@ -56,13 +57,13 @@ function PageClient({ ticket }: PageClientProps) {
       <Link href={"/"}>
         <HiOutlineArrowLeft size={27} />
       </Link>
-      <Card className="flex gap-4 h-[125px] items-center px-2 mt-5">
+      <Card className="flex gap-4 h-[150px] items-center px-2 mt-5">
         <div
           className={`h-[70%] w-[5px] ${
             isOpen ? "bg-green-600" : "bg-red-600"
           }  rounded-full`}
         />
-        <div className="flex flex-col gap-2 overflow-hidden text-ellipsis text-nowrap">
+        <div className="flex flex-col gap-2 overflow-hidden text-ellipsis text-nowrap items-start">
           <Popover onOpenChange={setOpenChangeStatus} open={openChangeStatus}>
             <PopoverTrigger>
               <Badge
@@ -97,12 +98,18 @@ function PageClient({ ticket }: PageClientProps) {
           </Popover>
 
           {ticket.clientName}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-full">
             <BiMessageSquareDetail size={20} />
             <h2 className="text-sm font-medium w-full overflow-hidden text-ellipsis text-nowrap">
               {ticket.messages.length}
             </h2>
           </div>
+          <h2 className="text-sm">
+            Aberto em:{" "}
+            <strong>
+              {format(new Date(ticket.createdAt), "dd/MM/yyyy 'às' HH:mm")}
+            </strong>
+          </h2>
         </div>
       </Card>
     </div>
