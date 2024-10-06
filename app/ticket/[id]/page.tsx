@@ -1,6 +1,7 @@
 import { getTicketById } from "@/app/_services/http/ticket";
 import React, { Suspense } from "react";
 import PageClient from "./pageClient";
+import PageSkeleton from "./_components/PageSkeleton";
 
 interface TicketProps {
   params: {
@@ -12,7 +13,7 @@ async function Ticket({ params }: TicketProps) {
   const ticket = await getTicketById(Number(params.id));
 
   return (
-    <Suspense fallback={<div>Carregando ticket...</div>}>
+    <Suspense fallback={<PageSkeleton />}>
       <PageClient ticket={ticket} />
     </Suspense>
   );

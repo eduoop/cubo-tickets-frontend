@@ -21,6 +21,7 @@ import {
 } from "@/app/_services/http/ticket";
 import { VscLoading } from "react-icons/vsc";
 import { format } from "date-fns";
+import ListMessages from "./_components/ListMessages";
 
 interface PageClientProps {
   ticket: Ticket;
@@ -57,7 +58,7 @@ function PageClient({ ticket }: PageClientProps) {
       <Link href={"/"}>
         <HiOutlineArrowLeft size={27} />
       </Link>
-      <Card className="flex gap-4 h-[150px] items-center px-2 mt-5">
+      <Card className="flex gap-4 h-[150px] items-center px-2 mt-5 mb-4">
         <div
           className={`h-[70%] w-[5px] ${
             isOpen ? "bg-green-600" : "bg-red-600"
@@ -115,6 +116,8 @@ function PageClient({ ticket }: PageClientProps) {
           </h2>
         </div>
       </Card>
+
+      <ListMessages messages={ticket.messages} clientName={ticket.clientName} />
     </div>
   );
 }
