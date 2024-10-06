@@ -71,14 +71,14 @@ function PageClient({ ticket }: PageClientProps) {
             </PopoverTrigger>
             <PopoverContent className="w-fit flex flex-col p-2 gap-2">
               <Button
-                className="rounded-full gap-2 border border-solid border-green-500/50 bg-green-50"
+                className="rounded-full gap-2 border border-solid border-green-500/50 bg-green-50 text-black hover:bg-green-50"
                 onClick={() => handleChangeTicketStatus("OPEN")}
               >
                 <FaCircle size={11} className="text-green-900" />
                 Ativo
               </Button>
               <Button
-                className="rounded-full gap-2 border border-solid border-red-500/50 bg-red-50"
+                className="rounded-full gap-2 border border-solid border-red-500/50 bg-red-50 text-black hover:bg-red-50"
                 onClick={() => handleChangeTicketStatus("CLOSED")}
               >
                 <FaCircle size={11} className="text-red-900" />
