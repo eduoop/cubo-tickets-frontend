@@ -53,7 +53,7 @@ function PageClient({ ticket }: PageClientProps) {
   };
 
   return (
-    <div className="px-6 py-4">
+    <div className="px-4 md:px-6 py-4">
       <Link href={"/"}>
         <HiOutlineArrowLeft size={27} />
       </Link>
@@ -97,7 +97,10 @@ function PageClient({ ticket }: PageClientProps) {
             </PopoverContent>
           </Popover>
 
-          {ticket.clientName}
+          <h2 className="text-sm">
+            Nome do cliente: <strong>{ticket.clientName}</strong>
+          </h2>
+
           <div className="flex items-center gap-2 w-full">
             <BiMessageSquareDetail size={20} />
             <h2 className="text-sm font-medium w-full overflow-hidden text-ellipsis text-nowrap">
